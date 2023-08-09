@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useToast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { toast } = useToast();
+  const router = useRouter();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -14,6 +19,19 @@ const Login = () => {
         password: password,
         redirect: false,
         callbackUrl: "/",
+      });
+      console.log(res);
+      if (res?.status == 200) {
+        toast({
+          title: "Login Successful",
+          description: "You are logged in successfully",
+        });
+        router.push("/");
+        return;
+      }
+      toast({
+        title: "Login unsuccesfull",
+        description: "Please check your credentials",
       });
     } catch (err: any) {
       setError(err.response);
@@ -49,6 +67,7 @@ const Login = () => {
           </button>
           {error && <p>{error}</p>}
         </form>
+        {/* <Toaster /> */}
       </div>
     </>
   );

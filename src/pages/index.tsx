@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 import { signOut, useSession } from "next-auth/react";
 import { Inter } from "next/font/google";
 import Link from "next/link";
@@ -15,7 +16,14 @@ export default function Home() {
       {session?.user ? (
         <div>
           Welcome {session?.user.first_name}!
-          <Button asChild variant={"link"} onClick={() => signOut()}>
+          <Button
+            asChild
+            variant={"link"}
+            onClick={() => {
+              signOut();
+              toast({ title: "Signed Out" });
+            }}
+          >
             <Link href={"#"}>Sign Out</Link>
           </Button>
         </div>

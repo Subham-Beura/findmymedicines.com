@@ -3,6 +3,8 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { Toaster } from "@/components/ui/toaster";
+import { toast } from "./ui/use-toast";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -14,21 +16,23 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   router.pathname == "/" && (isHome = true);
   router.pathname == "/auth/login" && (isAuth = true);
   router.pathname == "/signup" && (isAuth = true);
-
-  if (isHome)
+  if (isHome) {
     return (
       <>
         <Navbar />
         {children}
+        <Toaster />
         <Footer />
       </>
     );
+  }
 
   if (session?.user || isAuth)
     return (
       <>
         <Navbar />
         <main className="pt-[10vh]">{children}</main>
+        <Toaster />
         {!isHome && <Footer />}
       </>
     );
@@ -43,6 +47,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <h3 className="mt-3 text-2xl hover:underline">Please Sign In</h3>
           </Link>
         </div>
+        <Toaster />
       </main>
       <Footer />
     </>
