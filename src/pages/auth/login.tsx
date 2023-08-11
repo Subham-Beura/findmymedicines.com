@@ -2,7 +2,6 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useToast } from "@/components/ui/use-toast";
-import { Toaster } from "@/components/ui/toaster";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -13,6 +12,10 @@ const Login = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    toast({
+      title: "Logging In",
+      description: "Please Wait",
+    });
     try {
       const res = await signIn("credentials", {
         email_id: username,
@@ -30,6 +33,7 @@ const Login = () => {
         return;
       }
       toast({
+        variant: "destructive",
         title: "Login unsuccesfull",
         description: "Please check your credentials",
       });
@@ -67,7 +71,6 @@ const Login = () => {
           </button>
           {error && <p>{error}</p>}
         </form>
-        {/* <Toaster /> */}
       </div>
     </>
   );
