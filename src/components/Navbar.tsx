@@ -10,8 +10,8 @@ import {
   AiOutlineClose,
   AiOutlineSearch,
   AiOutlineShoppingCart,
+  AiOutlineUser,
 } from "react-icons/ai";
-import { signOut } from "next-auth/react";
 
 export default function Navbar() {
   let [isOpen, setIsOpen] = useState(false);
@@ -50,15 +50,21 @@ export default function Navbar() {
           </h1>
         </Link>
 
-        <div className="absolute right-0 mr-8 flex h-[50px] w-20 flex-row items-center justify-around ">
+        <div className="absolute right-0 mr-8 flex h-[50px] w-28 flex-row items-center justify-around ">
           <button className="button  ">
-            <AiOutlineSearch size={20} />
+            <Link href={"/search/"}>
+              <AiOutlineSearch size={22.5} />
+            </Link>
           </button>
           <button className="button  ">
-            <AiOutlineShoppingCart size={20} />
+            <Link href={"/cart"}>
+              <AiOutlineShoppingCart size={22.5} />
+            </Link>
           </button>
-          <button className="button" onClick={() => signOut()}>
-            <Link href="/profile">Profile</Link>
+          <button className="button">
+            <Link href={"/user"}>
+              <AiOutlineUser size={22.5} />
+            </Link>
           </button>
         </div>
       </div>
