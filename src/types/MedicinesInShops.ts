@@ -2,7 +2,7 @@ type MedicineInShops = {
   id: String;
   medicine: Medicine;
   medicineId: String;
-  shop: any;
+  shop: Shop;
   shopId: String;
   stock: Number;
   price: number;
