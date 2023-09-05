@@ -1,17 +1,40 @@
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { ToastAction } from "@radix-ui/react-toast";
 import axios from "axios";
 import { GetServerSideProps, NextPage } from "next";
 import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 interface Props {
   medicine: Medicine;
 }
 
 const Index: NextPage<Props> = ({ medicine }) => {
+  const { data: session } = useSession();
   const addToCart = async (medicineInShop: MedicineInShops) => {
     console.log(medicineInShop);
-    const res=await axios.get
+    const res = await axios.put(
+      process.env.NEXT_PUBLIC_API_URL + "/carts/" + session?.user.id,
+      {
+        medicineInShopsId: medicineInShop.id,
+      },
+      {
+        headers: { Authorization: "Bearer " + session?.user.token },
+      }
+    );
+    console.log(res.data);
+    toast({
+      title: "Added Item To Cart",
+      description: `${medicine.name}, ${medicineInShop.shop.name}`,
+      action: (
+        <ToastAction altText="Vist Cart">
+          <Link href="/cart">Visit Cart</Link>
+        </ToastAction>
+      ),
+    });
   };
   const addToWishList = async () => {};
   return (
