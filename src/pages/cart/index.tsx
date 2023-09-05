@@ -15,6 +15,7 @@ import {
 import { useSession } from "next-auth/react";
 import { toast } from "@/components/ui/use-toast";
 import { useState } from "react";
+import { AiFillDelete } from "react-icons/ai";
 
 interface Props {
   cartItems: any;
@@ -92,12 +93,12 @@ const Cart: NextPage<Props> = ({ cartItems: CI, cartId }) => {
                   <TableCell className="text-center">
                     <Button
                       variant={"destructive"}
-                      className="h-6 w-5"
+                      className="p-2 h-8 w-fit"
                       onClick={(e) =>
                         removeItem(e, medicineInShops, cartItem.id)
                       }
                     >
-                      X
+                      <AiFillDelete size={20} />
                     </Button>
                   </TableCell>
                   <TableCell className="text-right">
