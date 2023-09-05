@@ -5,7 +5,6 @@ type MedicineInShops = {
   shop: any;
   shopId: String;
   stock: Number;
-  price: Number;
+  price: number;
   presentInCarts: any;
-  
 };

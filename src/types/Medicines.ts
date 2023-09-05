@@ -4,5 +4,5 @@ type Medicine = {
   rating: Number;
   companyId: String;
   Company: Company;
-  MedicineInShops: MedicineInShops;
+  MedicineInShops: MedicineInShops[];
 };
