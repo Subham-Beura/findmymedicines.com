@@ -20,7 +20,9 @@ export default function Home() {
             asChild
             variant={"link"}
             onClick={() => {
-              signOut();
+              signOut({
+                redirect: false,
+              });
               toast({ title: "Signed Out" });
             }}
           >
